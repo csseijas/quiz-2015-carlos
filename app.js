@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/quizes/question', routes);
+app.use('/quizes/author', routes);
 
 
 
