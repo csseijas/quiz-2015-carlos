@@ -1,6 +1,9 @@
 var path = require('path');
 
-var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/)||"sqlite://:@:/";
+var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+
+//var url = "sqlite://:@:/".match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+
 var DB_name = (url[6]||null);
 var user = (url[2]||null);
 var pwd = (url[3]||null);
@@ -29,7 +32,9 @@ exports.Quiz = Quiz;
 sequelize.sync().then(function(){
 	Quiz.count().then(function(count){
 		if(count === 0){
-			Quiz.create({ pregunta: 'Capital de Italia', respuesta: 'Roma' }).then(function(){console.log('Base de datos inicializada')});
+			Quiz.create({ pregunta: 'Capital de Italia', respuesta: 'Roma' })
+			Quiz.create({ pregunta: 'Capital de Portugal', respuesta: 'Lisboa' })
+			.then(function(){console.log('Base de datos inicializada')});
 		};	
 	});		
 });
