@@ -3,12 +3,15 @@
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="quiz[respuesta]" <% if (quiz.respuesta==="Respuesta"){ %> placeholder="Respuesta" <% }else{ %> value="<%= quiz.respuesta %>" <% } %> /> <p>
 <label for="resp" class="rem">Temática:</label>
+<% var tematicas = ["otro", "humanidades", "ocio", "ciencia", "tecnologia"]; %>
 <select name="quiz[tematica]">
-  <option value="otro" selected>Otro</option>
-  <option value="humanidades">Humanidades</option>
-  <option value="ocio">Ocio</option>
-  <option value="ciencia">Ciencia</option>
-  <option value="tecnologia">Tecnología</option>
+<% for (var j = 0; j< tematicas.length; j++) { %>
+    <% if (quiz.tematica===tematicas[j]){  %>
+		<option value="<%= tematicas[j] %>" selected ><%= tematicas[j] %></option>
+	<% }else{  %>
+		<option value="<%= tematicas[j] %>" ><%= tematicas[j] %></option>
+	<% } %>
+<% } %>
 </select>
 <br/>
 <a href="/quizes"><button type="button">Cancelar</button></a>

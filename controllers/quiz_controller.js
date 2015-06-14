@@ -68,8 +68,9 @@ exports.create = function(req, res) {
 };
 
 exports.edit = function(req, res){
-	var quiz = req.quiz;
-	res.render('quizes/edit', {quiz: quiz, errors: [] });
+	models.Quiz.findById(req.params.quizId).then(function(quiz){
+		res.render('quizes/edit', { quiz: quiz, errors: [] });  
+	});
 }
 
 exports.update = function(req, res) {
