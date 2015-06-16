@@ -35,29 +35,7 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.use('/', function(req, res, next) {
-
-	var now = new Date();
-	var stamp = req.session.time ? new Date(req.session.time) : new Date();
-
-	if (req.path.match(/\/login|\/logout/)) {
-
-		if ((now.getMinutes() - 2) > stamp.getMinutes()) {
-			var errors = req.session.errors || 'Sesión caducada ...';
-			req.session.errors = {};
-			res.render('sessions/new', {
-			errors: errors
-			});
-		} else {
-
-			req.session.time = new Date();
-			next(); 
-		}
-	} else {
-		next(); 
-	}
-
-}, routes);
+app.use('/', routes);
 
 app.use('/quizes', routes);
 app.use('/login', routes);
