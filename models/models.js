@@ -2,8 +2,8 @@ var path = require('path');
 
 
 
-//var url = "sqlite://:@:/".match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
-var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+var url = "sqlite://:@:/".match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+//var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
 var DB_name = (url[6]||null);
 var user = (url[2]||null);
 var pwd = (url[3]||null);
@@ -27,7 +27,14 @@ var sequelize = new Sequelize(DB_name, user, pwd,
 					);
 
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
+var comment_path = path.join(__dirname,'comment');
+var Comment = sequelize.import(comment_path)
+
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
 exports.Quiz = Quiz;
+exports.Comment = Comment;
 
 sequelize.sync().then(function(){
 	Quiz.count().then(function(count){

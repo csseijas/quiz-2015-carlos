@@ -1,10 +1,17 @@
-<label for="preg" class="rem">Pregunta:</label>
-<input type="text" id="preg" name="quiz[pregunta]" <% if (quiz.pregunta==="Pregunta"){ %> placeholder="Pregunta" <% }else{ %> value="<%= quiz.pregunta %>" <% } %> /> <p>
-<label for="resp" class="rem">Respuesta:</label>
-<input type="text" id="resp" name="quiz[respuesta]" <% if (quiz.respuesta==="Respuesta"){ %> placeholder="Respuesta" <% }else{ %> value="<%= quiz.respuesta %>" <% } %> /> <p>
-<label for="resp" class="rem">Temática:</label>
+<table>
+<tr>
+<td><label for="preg" class="rem">Pregunta:</label></td>
+<td><input type="text" id="preg" name="quiz[pregunta]" <% if (quiz.pregunta==="Pregunta"){ %> placeholder="Pregunta" <% }else{ %> value="<%= quiz.pregunta %>" <% } %> /> </td>
+</tr>
+<tr>
+<td><label for="resp" class="rem">Respuesta:</label></td>
+<td><input type="text" id="resp" name="quiz[respuesta]" <% if (quiz.respuesta==="Respuesta"){ %> placeholder="Respuesta" <% }else{ %> value="<%= quiz.respuesta %>" <% } %> /> </td>
+</tr>
+<tr>
+<td>
+<label for="resp" class="rem">Temática:</label></td>
 <% var tematicas = ["otro", "humanidades", "ocio", "ciencia", "tecnologia"]; %>
-<select name="quiz[tematica]">
+<td><select name="quiz[tematica]">
 <% for (var j = 0; j< tematicas.length; j++) { %>
     <% if (quiz.tematica===tematicas[j]){  %>
 		<option value="<%= tematicas[j] %>" selected ><%= tematicas[j] %></option>
@@ -12,7 +19,10 @@
 		<option value="<%= tematicas[j] %>" ><%= tematicas[j] %></option>
 	<% } %>
 <% } %>
-</select>
+</select></td>
+</tr>
+</table>
+
 <br/>
-<a href="/quizes"><button type="button">Cancelar</button></a>
-<input type="submit" value="Guardar">
+<a href="/quizes"><button class="guardar" type="button">Cancelar</button></a>
+<input type="submit" class="guardar" value="Guardar">

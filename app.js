@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var routes = require('./routes/index');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var app = express();
 
@@ -21,20 +22,54 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(cookieParser());
+app.use(cookieParser('quiz'));
+app.use(session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-app.use('/', routes);
+app.use(function(req, res, next){
+	if (!req.path.match(/\/login\|\/logout/)){
+		req.session.redir = req.path;
+	}
+	res.locals.session = req.session;//hacer visible sesion en las vistas
+	next();
+});
+
+app.use('/', function(req, res, next) {
+
+	var now = new Date();
+	var stamp = req.session.time ? new Date(req.session.time) : new Date();
+
+	if (req.path.match(/\/login|\/logout/)) {
+
+		if ((now.getMinutes() - 2) > stamp.getMinutes()) {
+			var errors = req.session.errors || 'Sesión caducada ...';
+			req.session.errors = {};
+			res.render('sessions/new', {
+			errors: errors
+			});
+		} else {
+
+			req.session.time = new Date();
+			next(); 
+		}
+	} else {
+		next(); 
+	}
+
+}, routes);
+
 app.use('/quizes', routes);
+app.use('/login', routes);
+app.use('/logout', routes);
 app.use('/quizes/search', routes);
 app.use('/quizes/:quizId(\\d+)', routes);
 app.use('/quizes/author', routes);
 app.use('/quizes/new', routes);
 app.use('/quizes/:quizId(\\d+)/edit', routes);
-
-
-
+app.use('/quizes/:quizId(\\d+)/comments', routes);
+app.use('/quizes/:quizId(\\d+)/comments/new', routes);
+app.use('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', routes)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

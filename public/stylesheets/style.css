@@ -6,8 +6,16 @@ a { color: #00B7FF;}
 #page-wrap > .main {border: 1px solid #999; padding:1%; margin-bottom:1px; color:black;}
 
 section > div {padding:20px;}
-header, nav, section {background:#eee; text-align:center;}
+header, nav {background:#eee; text-align:center;}
+section {background:#eee;}
 footer {background:#eee; text-align:center;}
 nav span {margin: 0px 10px 0px 0px;}
 
 #ErrorMsgs {color:#f61; font-size:snaler}
+.crear {width:110px;height:50px;background-color:#eee;border-radius:15px;font-weight:bold;position:relative;left:40%}
+.buscar {width:100px;height:20px;background-color:#eee;border-radius:15px;font-weight:bold}
+.guardar {width:100px;height:20px;background-color:#eee;border-radius:15px;font-weight:bold}
+.editar {width:100px;height:20px;background-color:#eee;border-radius:15px;font-weight:bold}
+.comentario {width:200px;height:20px;background-color:#eee;border-radius:15px;font-weight:bold}
+.reduce {font-size:11px}
+.busqueda {position:relative;left:60%}
