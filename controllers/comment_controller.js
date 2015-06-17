@@ -26,7 +26,7 @@ exports.create = function(req, res) {
 		
 	comment.validate().then(function(err){
 		if (err){
-			res.render('comments/new', {comment:comment, quizid: quizId, errors: err.errors});
+			res.render('comments/new.ejs', {comment:comment, QuizId: quizId, errors: err.errors});
 		}else{
 			comment.save().then(function(){
 				res.redirect('/quizes/' + req.params.quizId); 	
@@ -36,7 +36,6 @@ exports.create = function(req, res) {
 };	
 
 exports.publish = function(req, res) {
-	
 	req.comment.publicado = true;
 	req.comment.save({fields: ["publicado"]})
 	.then( function(){

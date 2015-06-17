@@ -22,8 +22,14 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(cookieParser('quiz'));
-app.use(session());
+app.use(cookieParser('cookie'));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 

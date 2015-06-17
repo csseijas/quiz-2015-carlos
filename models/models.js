@@ -2,8 +2,8 @@ var path = require('path');
 
 
 
-//var url = "sqlite://:@:/".match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
-var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+var url = "sqlite://:@:/".match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+//var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
 var DB_name = (url[6]||null);
 var user = (url[2]||null);
 var pwd = (url[3]||null);
@@ -41,6 +41,7 @@ sequelize.sync().then(function(){
 		if(count === 0){
 			Quiz.create({ pregunta: 'Capital de Italia', respuesta: 'Roma', tematica: 'otro' })
 			Quiz.create({ pregunta: 'Capital de Portugal', respuesta: 'Lisboa', tematica: 'humanidades' })
+			Comment.create ({ texto: 'Pregunta facil', publicado: true, QuizId: 1})
 			.then(function(){console.log('Base de datos inicializada')});
 		};	
 	});		
